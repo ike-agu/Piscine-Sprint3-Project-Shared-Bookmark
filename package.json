@@ -1,0 +1,21 @@
+{
+  "name": "piscine-sprint3-project-shared-bookmark",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "dev": "http-server",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ike-agu/Piscine-Sprint3-Project-Shared-Bookmark.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ike-agu/Piscine-Sprint3-Project-Shared-Bookmark/issues"
+  },
+  "homepage": "https://github.com/ike-agu/Piscine-Sprint3-Project-Shared-Bookmark#readme"
+}
