@@ -11,11 +11,11 @@
 <body>
   <h1>Shared Bookmark</h1>
   <div id="container">
-    <label for="select_user"></label>
-    <select name="select-user" id="select-user"></select>
+    <label for="select-user"></label>
+    <select name="select-user" id="select-user"  aria-label="select-user"></select>
 
     <h2>Bookmarks</h2>
-    <section id="bookmarkList">
+    <section id="bookmarkList" >
       <!-- display bookmark list here -->
     </section>
 
@@ -24,11 +24,11 @@
     <h2>Add a New Bookmark</h2>
     <form action="" id="bookmarkForm">
       <label for="url">Url:</label><br>
-      <input type="url" id="url-input" name="Url" value="Url" required><br>
+      <input type="url" id="url-input" name="Url" value="Url"  aria-label="url" required><br>
       <label for="title">Title:</label><br>
-      <input type="text" id="title-input" name="title" value="title" required><br>
+      <input type="text" id="title-input" name="title" value="title"  aria-label="title" required><br>
       <label for="description">Description:</label><br>
-      <input type="text" id="description-input" name="description" value="description"><br>
+      <input type="text" id="description-input" name="description"  aria-label="description" value="description"><br><br>
       <input type="Submit" id="btn-submit" value="submit">
     </form>
   </div>
