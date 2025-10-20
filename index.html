@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <script defer type="module" src="script.js"></script> -->
+  <script defer type="module" src="script.js"></script>
   <title>Shared-Bookmark</title>
 </head>
 
@@ -12,23 +12,25 @@
   <h1>Shared Bookmark</h1>
   <div id="container">
     <label for="select-user"></label>
-    <select name="select-user" id="select-user"  aria-label="select-user"></select>
+    <select name="select-user" id="select-user"  aria-label="select-user">
+      <option value="" disabled selected> Select User </option>
+    </select>
 
     <h2>Bookmarks</h2>
     <section id="bookmarkList" >
       <!-- display bookmark list here -->
     </section>
 
-    <p id="noBookmarkMessage">No Bookmark Available for this user</p> <!-- P tag for no bkm available -->
-
     <h2>Add a New Bookmark</h2>
     <form action="" id="bookmarkForm">
       <label for="url">Url:</label><br>
-      <input type="url" id="url-input" name="Url" value="Url"  aria-label="url" required><br>
+      <input type="url" id="url-input" name="Url" placeholder="Url"  aria-label="url" required><br>
       <label for="title">Title:</label><br>
-      <input type="text" id="title-input" name="title" value="title"  aria-label="title" required><br>
+      <input type="text" id="title-input" name="title" placeholder="Title"  aria-label="title" required><br>
       <label for="description">Description:</label><br>
-      <input type="text" id="description-input" name="description"  aria-label="description" value="description"><br><br>
+      <textarea id="w3review" name="w3review" rows="4"
+        cols="50" placeholder="Add a description" aria-label="description"></textarea>
+      <br>
       <input type="Submit" id="btn-submit" value="submit">
     </form>
   </div>
