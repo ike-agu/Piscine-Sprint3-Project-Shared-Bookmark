@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script defer type="module" src="script.js"></script>
+  <!-- <script defer type="module" src="script.js"></script> -->
   <title>Shared-Bookmark</title>
 </head>
+
 <body>
-<h1>Shared Bookmark</h1>
-<div id="container">
-  <select name="user" id=""></select>
+  <h1>Shared Bookmark</h1>
+  <div id="container">
+    <label for="select_user"></label>
+    <select name="select-user" id="select-user"></select>
 
+    <h2>Bookmarks</h2>
+    <section id="bookmarkList">
+      <!-- display bookmark list here -->
+    </section>
 
-</div>
+    <p id="noBookmarkMessage">No Bookmark Available for this user</p> <!-- P tag for no bkm available -->
+
+    <h2>Add a New Bookmark</h2>
+    <form action="" id="bookmarkForm">
+      <label for="url">Url:</label><br>
+      <input type="url" id="url-input" name="Url" value="Url" required><br>
+      <label for="title">Title:</label><br>
+      <input type="text" id="title-input" name="title" value="title" required><br>
+      <label for="description">Description:</label><br>
+      <input type="text" id="description-input" name="description" value="description"><br>
+      <input type="Submit" id="btn-submit" value="submit">
+    </form>
+  </div>
 
 </body>
+
 </html>
