@@ -6,7 +6,33 @@
 
 import { getUserIds } from "./storage.js";
 
+
+
+const users = getUserIds();
+
+// =======DOM ELEMENTS========
+const selectUser = document.getElementById("select-user")
+
+
+//======EVENT LISTENERS==============
+selectUser.addEventListener("change", ()=>{
+  
+})
+
+
+//======HELPER FUNCTIONS=========
+
+function selectDropDown(users){
+  users.forEach((user) => {
+    let option = document.createElement("option")
+    option.text = `User${user}`
+    selectUser.add(option)
+  })
+};
+
+console.log(selectDropDown(users));
+
 window.onload = function () {
   const users = getUserIds();
-  document.querySelector("body").innerText = `There are ${users.length} users`;
+  // document.querySelector("body").innerText = `There are ${users.length} users`;
 };
