@@ -4,52 +4,97 @@
 // Note that when running locally, in order to open a web page which uses modules, you must serve the directory over HTTP e.g. with https://www.npmjs.com/package/http-server
 // You can't open the index.html file using a file:// URL.
 
-import { getUserIds, getData } from "./storage.js";
+import { getUserIds, getData, setData } from "./storage.js";
 
 // =======DOM ELEMENTS========
-const selectUser = document.getElementById("select-user")
+const selectUser = document.getElementById("select-user");
 const bookMarkList = document.getElementById("bookmarkList");
+const bookMarkUrl = document.getElementById("url-input");
+const title = document.getElementById("title-input");
+const textArea = document.getElementById("textAreaField");
+const timeCreated = document.getElementById("timeCreated");
+const form = document.getElementById("bookmarkForm");
 
 // =========INITIALIZE APP=========
 window.onload = function () {
   const users = getUserIds();
   selectDropDown(users);
   // display for first user by default
-  let selectUserValue =  "0";
-  displayBookmarkList(selectUserValue);
-}
-//======EVENT LISTENERS==============
-//---------event listener for drop down changes
-selectUser.addEventListener("change", (event)=> {
-  const selectedUser = event.target.value;
-  displayBookmarkList(selectedUser);
-})
-
-
-//--------function to select populate select dropdown
-function selectDropDown(users){
-  users.forEach((user) => {
-    let option = document.createElement("option")
-    option.value = user
-    option.text = `User${user}`
-    selectUser.add(option)
-  })
+  const defaultUser = "0";
+  displayBookmarkList(defaultUser);
 };
 
-// ---function to display bookmarks------------
-function displayBookmarkList(userId){
-  bookMarkList.innerHTML = ""
-  const userData = getData(userId);
-  if(!userData || userData.length === 0){
-    bookMarkList.textContent = `No Bookmark available. Please add a new Bookmark`;
+//======EVENT LISTENERS==============
+//---------event listener for drop down changes
+selectUser.addEventListener("change", (event) => {
+  const selectedUser = event.target.value;
+  displayBookmarkList(selectedUser);
+});
+
+//-----event listener for new bookmark submission------
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const userId = selectUser.value;
+
+  // validation controls before submit
+  if (!userId || userId === "0") {
+    alert("Please select user.");
     return;
   }
+
+  //either I get current bookmarks or empty array as fall back
+  const userData = getData(userId) || [];
+
+  const newBookMark = {
+    url: bookMarkUrl.value,
+    title: title.value,
+    textArea: textArea.value,
+    timeCreated: new Date().toLocaleString(),
+  };
+
+  //Add to array and persist
+  userData.push(newBookMark);
+  setData(userId, userData);
+
+  // clear inputs and refresh form
+  form.reset();
+  displayBookmarkList(userId);
+});
+
+// ========== FUNCTIONS ===================
+
+//--------function to select populate select dropdown
+function selectDropDown(users) {
+  users.forEach((user) => {
+    const option = document.createElement("option");
+    option.value = user;
+    option.text = `User${user}`;
+    selectUser.add(option);
+  });
 }
 
-//-----function to fetch all Bookmarks
+// ---function to display bookmarks------------
+function displayBookmarkList(userId) {
+  bookMarkList.innerHTML = "";
 
+  // Always get an array, even if getData() returns null
+  const userData = getData(userId) || [];
 
-// window.onload = function () {
-//   // const users = getUserIds();
-//   // document.querySelector("body").innerText = `There are ${users.length} users`;
-// };
+  if (!userData || userData.length === 0) {
+    bookMarkList.textContent = `No Bookmark for selected user ${userId}. Please add a new Bookmark`;
+    return;
+  }
+
+  //loop through each Bookmark and display them.
+  userData.forEach((bookmark) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <p><strong>Title:</strong> ${bookmark.title}</p>
+      <p><strong>URL:</strong> <a href= "${bookmark.url}" target="_blank">"${bookmark.url}" </a></p>
+      <p><strong>Description: </strong> ${bookmark.textArea}</p>
+      <p><em>Bookmark added on: ${bookmark.timeCreated}</em></p>
+      <hr>
+      `;
+    bookMarkList.appendChild(div);
+  });
+}
