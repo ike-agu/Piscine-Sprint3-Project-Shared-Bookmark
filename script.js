@@ -5,6 +5,7 @@
 // You can't open the index.html file using a file:// URL.
 
 import { getUserIds, getData, setData } from "./storage.js";
+import { sortBookMarksByNewest } from "./common.js";
 
 // =======DOM ELEMENTS========
 const selectUser = document.getElementById("select-user");
@@ -42,14 +43,14 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  //either I get current bookmarks or empty array as fall back
+  //get current bookmarks or empty array as fall back
   const userData = getData(userId) || [];
 
   const newBookMark = {
     url: bookMarkUrl.value,
     title: title.value,
     textArea: textArea.value,
-    timeCreated: new Date().toLocaleString(),
+    timeCreated: new Date().toISOString(),
   };
 
   //Add to array and persist
@@ -58,6 +59,10 @@ form.addEventListener("submit", (e) => {
 
   // clear inputs and refresh form
   form.reset();
+
+  //automatically select the last user you added a bookmark for (so it doesn’t reset to user 0)
+  selectUser.value = userId;
+
   displayBookmarkList(userId);
 });
 
@@ -85,14 +90,21 @@ function displayBookmarkList(userId) {
     return;
   }
 
+  //sort Bookmarks before displaying
+  const sortedBookMarks = sortBookMarksByNewest(userData);
+
   //loop through each Bookmark and display them.
-  userData.forEach((bookmark) => {
+  sortedBookMarks.forEach((bookmark) => {
     const div = document.createElement("div");
     div.innerHTML = `
       <p><strong>Title:</strong> ${bookmark.title}</p>
-      <p><strong>URL:</strong> <a href= "${bookmark.url}" target="_blank">"${bookmark.url}" </a></p>
+      <p><strong>URL:</strong> <a href= "${bookmark.url}" target="_blank">"${
+      bookmark.url
+    }" </a></p>
       <p><strong>Description: </strong> ${bookmark.textArea}</p>
-      <p><em>Bookmark added on: ${bookmark.timeCreated}</em></p>
+      <p><em>Bookmark added on: ${new Date(
+        bookmark.timeCreated
+      ).toLocaleString()}</em></p>
       <hr>
       `;
     bookMarkList.appendChild(div);

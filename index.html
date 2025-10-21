@@ -16,11 +16,6 @@
       <option value="" disabled selected> Select User </option>
     </select>
 
-    <h2>Bookmarks</h2>
-    <section id="bookmarkList">
-      <!-- display bookmark list here -->
-    </section>
-
     <h2>Add a New Bookmark</h2>
     <form action="" id="bookmarkForm">
       <label for="url">Url:</label><br>
@@ -29,11 +24,16 @@
       <input type="text" id="title-input" name="title" placeholder="Title" aria-label="title" required><br>
       <label for="description">Description:</label><br>
       <textarea id="textAreaField" name="textAreaField" rows="4" cols="50" placeholder="Add a description"
-        aria-label="description"></textarea>
+        aria-label="description" required></textarea>
       <br>
       <input type="Submit" id="btn-submit" value="submit">
     </form>
     <p id="time-created"></p>
+
+    <h2>Bookmarks</h2>
+    <section id="bookmarkList">
+      <!-- display bookmark list here -->
+    </section>
   </div>
 
 </body>
