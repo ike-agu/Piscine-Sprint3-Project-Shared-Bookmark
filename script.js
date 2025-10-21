@@ -43,6 +43,14 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
+  //-----Allows user to submit form by pressing enter------------
+  textArea.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
   //get current bookmarks or empty array as fall back
   const userData = getData(userId) || [];
 
