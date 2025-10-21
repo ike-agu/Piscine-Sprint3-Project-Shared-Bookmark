@@ -1,0 +1,44 @@
+#container{
+  width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid rgb(195, 193, 193);
+  border-radius: 10px;
+  background-color: rgb(216, 223, 244);
+
+}
+
+body h1{
+  color: rgb(62, 62, 233);
+  text-align: center;
+  margin: 20px 10px;
+}
+
+body h3{
+  color: blue;
+}
+
+#textAreaField {
+  resize: none;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.error-message{
+  color: red;
+  font-weight: bold;
+}
+
+#display-text{
+  font-size: 18px;
+  text-align: center;
+
+}
