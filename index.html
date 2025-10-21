@@ -12,21 +12,25 @@
 
 <body>
   <h1>Shared Bookmark</h1>
+  <p id="display-text"></p>
+
   <div id="container">
+    <label for="select-user">Select User:</label>
+    <select name="select-user" id="select-user" class="form-control" aria-label="select-user">
+      <option value="" disabled selected> -- Select User -- </option>
+    </select>
 
-      <label for="select-user">Select User:</label>
-      <select name="select-user" id="select-user" class="form-control" aria-label="select-user">
-        <option value="" disabled selected> -- Select User -- </option>
-      </select>
+  </div>
 
+  <br><br>
+
+  <div id="container">
     <h2>Add New Bookmark</h2>
     <br>
     <form action="" id="bookmarkForm">
       <div class="form-group">
-
-          <!-- <legend>Add a New Bookmark</legend><br> -->
-          <label for="url">Url:</label><br>
-          <input type="url" id="url-input" class="form-control" name="Url" placeholder="Url" aria-label="url" required>
+        <label for="url">Url:</label><br>
+        <input type="url" id="url-input" class="form-control" name="Url" placeholder="Url" aria-label="url" required>
       </div>
 
       <div class="form-group">
@@ -40,11 +44,15 @@
         <textarea id="textAreaField" name="textAreaField" rows="4" cols="50" placeholder="Add a description"
           aria-label="description" required class="form-control"></textarea>
       </div>
+
       <button type="submit" id="btn-submit" class="btn btn-default">Submit</button>
     </form>
-    <p id="time-created"></p>
 
-    <h2>Bookmark List</h2>
+  </div> <br><br>
+
+  <div id="container">
+
+    <h3>Bookmark List</h3>
     <section id="bookmarkList">
       <!-- display bookmark list here -->
     </section>

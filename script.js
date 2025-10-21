@@ -1,9 +1,3 @@
-// This is a placeholder file which shows how you can access functions defined in other files.
-// It can be loaded into index.html.
-// You can delete the contents of the file once you have understood how it works.
-// Note that when running locally, in order to open a web page which uses modules, you must serve the directory over HTTP e.g. with https://www.npmjs.com/package/http-server
-// You can't open the index.html file using a file:// URL.
-
 import { getUserIds, getData, setData } from "./storage.js";
 import { sortBookMarksByNewest } from "./common.js";
 
@@ -15,6 +9,7 @@ const title = document.getElementById("title-input");
 const textArea = document.getElementById("textAreaField");
 const timeCreated = document.getElementById("timeCreated");
 const form = document.getElementById("bookmarkForm");
+const displayText = document.getElementById("display-text");
 
 // =========INITIALIZE APP=========
 window.onload = function () {
@@ -23,12 +18,19 @@ window.onload = function () {
   // display for first user by default
   const defaultUser = "0";
   displayBookmarkList(defaultUser);
+
+  bookMarkList.textContent = "Select user to view or add Bookmark";
+  bookMarkList.classList.remove("error-message");
+
+  displayText.textContent = "Select user to view or add Bookmark";
+  displayText.style.display = "block";
 };
 
 //======EVENT LISTENERS==============
 //---------event listener for drop down changes
 selectUser.addEventListener("change", (event) => {
   const selectedUser = event.target.value;
+  displayText.style.display = "none";
   displayBookmarkList(selectedUser);
 });
 
@@ -97,7 +99,7 @@ function displayBookmarkList(userId) {
     bookMarkList.textContent = `No Bookmark for selected user ${userId}. Please add a new Bookmark`;
     bookMarkList.classList.add("error-message");
     return;
-  }else{
+  } else {
     bookMarkList.classList.remove("error-message");
   }
 

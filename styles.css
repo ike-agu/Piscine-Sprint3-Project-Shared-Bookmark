@@ -1,20 +1,21 @@
-body{
-  background-color: grey;
-}
-
 #container{
   width: 800px;
   margin: 0 auto;
   padding: 30px;
-  border: 1px solid rgb(116, 114, 114);
+  border: 1px solid rgb(195, 193, 193);
   border-radius: 10px;
-  background-color: rgb(240, 234, 234);
+  background-color: rgb(216, 223, 244);
+
 }
 
 body h1{
   color: rgb(62, 62, 233);
   text-align: center;
-  margin: 40px 20px;
+  margin: 20px 10px;
+}
+
+body h3{
+  color: blue;
 }
 
 #textAreaField {
@@ -34,4 +35,10 @@ label {
 .error-message{
   color: red;
   font-weight: bold;
+}
+
+#display-text{
+  font-size: 18px;
+  text-align: center;
+
 }
