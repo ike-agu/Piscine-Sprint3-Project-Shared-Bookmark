@@ -1,0 +1,37 @@
+body{
+  background-color: grey;
+}
+
+#container{
+  width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid rgb(116, 114, 114);
+  border-radius: 10px;
+  background-color: rgb(240, 234, 234);
+}
+
+body h1{
+  color: rgb(62, 62, 233);
+  text-align: center;
+  margin: 40px 20px;
+}
+
+#textAreaField {
+  resize: none;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.error-message{
+  color: red;
+  font-weight: bold;
+}

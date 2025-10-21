@@ -95,7 +95,10 @@ function displayBookmarkList(userId) {
 
   if (!userData || userData.length === 0) {
     bookMarkList.textContent = `No Bookmark for selected user ${userId}. Please add a new Bookmark`;
+    bookMarkList.classList.add("error-message");
     return;
+  }else{
+    bookMarkList.classList.remove("error-message");
   }
 
   //sort Bookmarks before displaying
