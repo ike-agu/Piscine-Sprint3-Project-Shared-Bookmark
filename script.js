@@ -1,51 +1,76 @@
+// ==================================================
+// =============== IMPORTS ==========================
+// ==================================================
 import { getUserIds, getData, setData } from "./storage.js";
-import { sortBookMarksByNewest } from "./common.js";
+import { sortBookMarksByNewest, displayBookmarkList } from "./common.js";
 
-// =======DOM ELEMENTS========
+// ==================================================
+// =============== DOM ELEMENTS =====================
+// ==================================================
 const selectUser = document.getElementById("select-user");
 const bookMarkList = document.getElementById("bookmarkList");
 const bookMarkUrl = document.getElementById("url-input");
 const title = document.getElementById("title-input");
 const textArea = document.getElementById("textAreaField");
-const timeCreated = document.getElementById("timeCreated");
 const form = document.getElementById("bookmarkForm");
 const displayText = document.getElementById("display-text");
 
-// =========INITIALIZE APP=========
+// ==================================================
+// =============== HELPER FUNCTIONS =================
+// ==================================================
+
+//---function to populate select dropdown---
+function selectDropDown(users) {
+  users.forEach((user) => {
+    const option = document.createElement("option");
+    option.value = user;
+    option.text = `User-${user}`;
+    selectUser.add(option);
+  });
+}
+
+// ==================================================
+// =============== INITIALIZE APP ===================
+// ==================================================
 window.onload = function () {
   const users = getUserIds();
   selectDropDown(users);
+
   // display for first user by default
   const defaultUser = "0";
-  displayBookmarkList(defaultUser);
+  displayBookmarkList(bookMarkList, defaultUser, getData, sortBookMarksByNewest);
 
   bookMarkList.textContent = "Select user to view or add Bookmark";
   bookMarkList.classList.remove("error-message");
 
+  //display text to select user on page load
   displayText.textContent = "Select user to view or add Bookmark";
   displayText.style.display = "block";
 };
 
-//======EVENT LISTENERS==============
-//---------event listener for drop down changes
+// ==================================================
+// =============== EVENT LISTENERS ==================
+// ==================================================
+
+//---event listener for drop down changes---
 selectUser.addEventListener("change", (event) => {
   const selectedUser = event.target.value;
   displayText.style.display = "none";
-  displayBookmarkList(selectedUser);
+  displayBookmarkList(bookMarkList, selectedUser, getData, sortBookMarksByNewest);
 });
 
-//-----event listener for new bookmark submission------
+//--- event listener for Form (new bookmark) submission ---
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const userId = selectUser.value;
 
-  // validation controls before submit
+  // validation controls before submitting
   if (!userId || userId === "0") {
     alert("Please select user.");
     return;
   }
 
-  //-----Allows user to submit form by pressing enter------------
+  // Allows user to submit form by pressing enter
   textArea.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -53,9 +78,10 @@ form.addEventListener("submit", (e) => {
     }
   });
 
-  //get current bookmarks or empty array as fall back
+  //get current bookmarks or empty array
   const userData = getData(userId) || [];
 
+  //create new bookmark
   const newBookMark = {
     url: bookMarkUrl.value,
     title: title.value,
@@ -63,63 +89,12 @@ form.addEventListener("submit", (e) => {
     timeCreated: new Date().toISOString(),
   };
 
-  //Add to array and persist
+  //save bookmark to array
   userData.push(newBookMark);
   setData(userId, userData);
 
-  // clear inputs and refresh form
+  // reset form and reload bookmarks
   form.reset();
-
-  //automatically select the last user you added a bookmark for (so it doesn’t reset to user 0)
   selectUser.value = userId;
-
-  displayBookmarkList(userId);
+  displayBookmarkList(bookMarkList, userId, getData, sortBookMarksByNewest);
 });
-
-// ========== FUNCTIONS ===================
-
-//--------function to select populate select dropdown
-function selectDropDown(users) {
-  users.forEach((user) => {
-    const option = document.createElement("option");
-    option.value = user;
-    option.text = `User${user}`;
-    selectUser.add(option);
-  });
-}
-
-// ---function to display bookmarks------------
-function displayBookmarkList(userId) {
-  bookMarkList.innerHTML = "";
-
-  // Always get an array, even if getData() returns null
-  const userData = getData(userId) || [];
-
-  if (!userData || userData.length === 0) {
-    bookMarkList.textContent = `No Bookmark for selected user ${userId}. Please add a new Bookmark`;
-    bookMarkList.classList.add("error-message");
-    return;
-  } else {
-    bookMarkList.classList.remove("error-message");
-  }
-
-  //sort Bookmarks before displaying
-  const sortedBookMarks = sortBookMarksByNewest(userData);
-
-  //loop through each Bookmark and display them.
-  sortedBookMarks.forEach((bookmark) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <p><strong>Title:</strong> ${bookmark.title}</p>
-      <p><strong>URL:</strong> <a href= "${bookmark.url}" target="_blank">"${
-      bookmark.url
-    }" </a></p>
-      <p><strong>Description: </strong> ${bookmark.textArea}</p>
-      <p><em>Bookmark added on: ${new Date(
-        bookmark.timeCreated
-      ).toLocaleString()}</em></p>
-      <hr>
-      `;
-    bookMarkList.appendChild(div);
-  });
-}

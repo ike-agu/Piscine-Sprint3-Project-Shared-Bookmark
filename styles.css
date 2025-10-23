@@ -1,11 +1,10 @@
 #container{
-  width: 800px;
+  width: 600px;
   margin: 0 auto;
   padding: 30px;
   border: 1px solid rgb(195, 193, 193);
   border-radius: 10px;
   background-color: rgb(216, 223, 244);
-
 }
 
 body h1{
@@ -38,7 +37,6 @@ label {
 }
 
 #display-text{
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
-
 }
